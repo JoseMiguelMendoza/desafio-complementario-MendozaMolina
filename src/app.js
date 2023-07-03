@@ -36,22 +36,55 @@ app.use('/', viewsRouter)
 app.use('/chat', chatRouter)
 
 
-const messages = []
+// io.on("connection", socket => {
+//     console.log('A new client has connected to the Server')
+//     socket.on('productList',async(data) => {
+//         let products = await productManager.addProducts(data)
+//         io.emit('updatedProducts', products)
+//     })
+
+//     let messages = []
+
+//     socket.emit('logs', messages)
+//     socket.on('message', async(data) => {
+//         messages.push(data)
+//         messageModel.create(data)
+//         let messageData = await messageModel.find().exec().lean()
+//         io.emit('logs', messageData)
+//     })
+// })
 
 io.on("connection", socket => {
     console.log('A new client has connected to the Server')
-    socket.on('productList',async(data) => {
-        let products = await productManager.addProducts(data)
-        io.emit('updatedProducts', products)
-    })
 
-    socket.emit('logs', messages)
-    socket.on('message', async(data) => {
-        messageModel.create(data)
-        let messageData = await messageModel.find().lean().exec()
-        io.emit('logs', messageData)
-    })
-})
+    socket.on('productList', async (data) => {
+        let products = await productManager.addProducts(data);
+        io.emit('updatedProducts', products);
+    });
+
+    messageModel.find().lean().exec()
+        .then(messages => {
+            socket.emit('logs', messages);
+        })
+        .catch(error => {
+            console.error('Error al obtener los mensajes:', error);
+        });
+
+    socket.on('message', async (data) => {
+        await messageModel.create(data)
+            .catch(error => {
+                console.error('Error al guardar el mensaje:', error);
+            });
+
+        messageModel.find().lean().exec()
+            .then(messages => {
+                io.emit('logs', messages);
+            })
+            .catch(error => {
+                console.error('Error al obtener los mensajes:', error);
+            });
+    });
+});
 
 
 

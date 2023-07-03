@@ -12,9 +12,7 @@ buttonForm.addEventListener('click', (e) => {
         stock: Number(document.getElementById('inputStock').value),
         category: document.getElementById('inputCategory').value
     }
-    fetch('/api/products', {
-        method: 'post'
-        })
+    fetch('/api/products')
         .then(result => result.json())
         .then(result => {
             if(result.status == 'error') throw new Error(result.error)
