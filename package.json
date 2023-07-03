@@ -1,0 +1,22 @@
+{
+  "name": "desafio-complementario-class15",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
+    "handlebars": "^4.7.7",
+    "mongoose": "^7.3.1",
+    "nanoid": "^4.0.2",
+    "socket.io": "^4.7.1"
+  }
+}

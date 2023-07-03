@@ -1,0 +1,13 @@
+[
+	{
+		"title": "Producto 4",
+		"description": "Es el cuarto producto",
+		"price": 1245,
+		"code": 3456,
+		"stock": 144,
+		"category": "Novedad",
+		"id": 1,
+		"status": true,
+		"thumbnail": []
+	}
+]
