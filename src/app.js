@@ -35,25 +35,6 @@ app.use('/api/carts', cartRouter)
 app.use('/', viewsRouter)
 app.use('/chat', chatRouter)
 
-
-// io.on("connection", socket => {
-//     console.log('A new client has connected to the Server')
-//     socket.on('productList',async(data) => {
-//         let products = await productManager.addProducts(data)
-//         io.emit('updatedProducts', products)
-//     })
-
-//     let messages = []
-
-//     socket.emit('logs', messages)
-//     socket.on('message', async(data) => {
-//         messages.push(data)
-//         messageModel.create(data)
-//         let messageData = await messageModel.find().exec().lean()
-//         io.emit('logs', messageData)
-//     })
-// })
-
 io.on("connection", socket => {
     console.log('A new client has connected to the Server')
 
