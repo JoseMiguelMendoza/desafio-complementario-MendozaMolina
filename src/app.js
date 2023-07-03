@@ -3,6 +3,7 @@ import { Server } from 'socket.io'
 import handlebars from 'express-handlebars'
 import productRouter from './routes/product.router.js'
 import cartRouter from './routes/cart.router.js'
+import chatRouter from './routes/chat.router.js'
 import viewsRouter from './routes/views.router.js'
 import ProductManager from './dao/mongo/productManager.js'
 import mongoose from 'mongoose'
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 app.use('/api/products', productRouter)
 app.use('/api/carts', cartRouter)
 app.use('/', viewsRouter)
+app.use('/chat', chatRouter)
 
 
 const messages = []
