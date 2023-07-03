@@ -45,7 +45,8 @@ deleteProduct = (id) => {
 socket.on('updatedProducts', data => {
     if (data !== null) {
         containerProducts.innerHTML = '';
-        data.forEach(product => {
+        let dataArray = Array.from(data)
+        dataArray.forEach(product => {
             let productHtml = `
             <div class="containerProductWithId" id="${product._id}">
             <button class="deleteButtonProduct" onclick="deleteProduct('${product._id}')">Eliminar</button>

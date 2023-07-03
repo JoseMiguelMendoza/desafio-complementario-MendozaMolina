@@ -38,9 +38,14 @@ app.use('/chat', chatRouter)
 io.on("connection", socket => {
     console.log('A new client has connected to the Server')
 
-    socket.on('productList', async (data) => {
-        let products = await productManager.addProducts(data);
-        io.emit('updatedProducts', products);
+    socket.on('productList', async(data) => {
+        await productManager.addProducts(data)
+            .then(data => {
+                io.emit('updatedProducts', data)
+            })
+            .catch(err => {
+                console.error('Error:', err);
+            })
     });
 
     messageModel.find().lean().exec()
@@ -66,10 +71,6 @@ io.on("connection", socket => {
             });
     });
 });
-
-
-
-
 
 mongoose.set('strictQuery', false)
 try{
