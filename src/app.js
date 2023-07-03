@@ -6,6 +6,7 @@ import cartRouter from './routes/cart.router.js'
 import chatRouter from './routes/chat.router.js'
 import viewsRouter from './routes/views.router.js'
 import ProductManager from './dao/mongo/productManager.js'
+import messageModel from './dao/models/message.model.js'
 import mongoose from 'mongoose'
 
 const app = express()
@@ -45,11 +46,14 @@ io.on("connection", socket => {
     })
 
     socket.emit('logs', messages)
-    socket.on('message', data => {
-        messages.push(data)
-        io.emit('logs', messages)
+    socket.on('message', async(data) => {
+        messageModel.create(data)
+        let messageData = await messageModel.find().lean().exec()
+        io.emit('logs', messageData)
     })
 })
+
+
 
 
 
